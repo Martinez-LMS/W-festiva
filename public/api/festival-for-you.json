@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "type": "genre", "id": "rock", "name": "Rock", "sub": "Festival", "bg": "from-blue-900 to-blue-950" },
+    { "type": "genre", "id": "pop", "name": "Pop", "sub": "Festival", "bg": "from-emerald-600 to-emerald-800" },
+    { "type": "ad", "id": "airpods" },
+    { "type": "genre", "id": "funk", "name": "Funk", "sub": "Festival", "bg": "from-purple-600 to-purple-800" }
+  ]
+}
