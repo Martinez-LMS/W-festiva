@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from 'react'
 import { GoDeviceCameraVideo } from 'react-icons/go'
 
-const VIDEO_AVRIL_FULL = '/icons/' + encodeURI('Avril Lavigne - Sk8er Boi Live at Rock in Rio (1).mp4')
-const VIDEO_AVRIL_SHORT = '/icons/avril-live.mp4'
+import { ASSETS } from '../constants/assets'
+
+const VIDEO_AVRIL_FULL = ASSETS.videos.avrilLiveFull
+const VIDEO_AVRIL_SHORT = ASSETS.videos.avrilLiveShort
 const LOOP_SECONDS = 2
 
 export function VideoSection() {
@@ -118,7 +120,7 @@ export function VideoSection() {
             className="p-0.5 sm:p-1 rounded-lg bg-transparent hover:bg-white/15 text-white border-0 transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="Lista"
           >
-            <img src={'/icons/' + encodeURI('Icons Player 4.png')} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
+            <img src={ASSETS.player.list} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
           </button>
           <button
             type="button"
@@ -126,7 +128,7 @@ export function VideoSection() {
             className="p-0.5 sm:p-1 rounded-lg bg-transparent hover:bg-white/15 text-white border-0 transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="Picture-in-picture"
           >
-            <img src={'/icons/' + encodeURI('Icons Player 3.png')} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
+            <img src={ASSETS.player.pip} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
           </button>
           <button
             type="button"
@@ -134,7 +136,7 @@ export function VideoSection() {
             className="p-0.5 sm:p-1 rounded-lg bg-transparent hover:bg-white/15 text-white border-0 transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
             aria-label={muted ? 'Ativar som' : 'Desativar som'}
           >
-            <img src={'/icons/' + encodeURI('Icons Player 2.png')} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
+            <img src={ASSETS.player.volume} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
           </button>
           <button
             type="button"
@@ -142,7 +144,7 @@ export function VideoSection() {
             className="p-0.5 sm:p-1 rounded-lg bg-transparent hover:bg-white/15 text-white border-0 transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
             aria-label="Configurações"
           >
-            <img src={'/icons/' + encodeURI('Icons Player.png')} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
+            <img src={ASSETS.player.settings} alt="" className="w-7 h-7 sm:w-12 sm:h-12 object-contain" />
           </button>
         </div>
         {showLista && (

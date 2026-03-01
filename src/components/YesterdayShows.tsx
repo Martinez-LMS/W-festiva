@@ -1,14 +1,15 @@
 import { ArtistCard } from './ArtistCard'
 import { ScrollRow } from './ScrollRow'
 import { SectionWrapper } from './SectionWrapper'
+import { ASSETS } from '../constants/assets'
 
 const YESTERDAY_ARTISTS = [
-  { name: 'Marshmello', gradient: 'from-amber-600 to-orange-800', image: '/icons/5c6dcc0465b5b8f62e503413b2957ec064088f54.png' },
-  { name: 'Alok', gradient: 'from-red-900 to-neutral-900', image: '/icons/2795bd5706948c68cfaaeff6606823c9dc2bbf4d.png' },
-  { name: 'Rita Ora', gradient: 'from-blue-900 to-neutral-900', image: '/icons/62e2f69934fb385de838b0299b6b1706dd0d9588.png' },
-  { name: 'Dream Theatre', gradient: 'from-neutral-700 to-neutral-900', image: '/icons/26185ff81486c613f7d6d84d2420e5f97c6ddb27.png' },
-  { name: 'Dua Lipa', gradient: 'from-purple-700 via-purple-900 to-neutral-900', image: '/icons/a17e851d574eb43d7b6445bc9fda6dc33b0d719b.png' },
-  { name: 'Måneskin', gradient: 'from-rose-900 to-neutral-900', image: '/icons/c5effda54924b507d94a0c9b1402171b0a4f7bf4.png' },
+  { name: 'Marshmello', gradient: 'from-amber-600 to-orange-800', image: ASSETS.artists.marshmello },
+  { name: 'Alok', gradient: 'from-red-900 to-neutral-900', image: ASSETS.artists.alok },
+  { name: 'Rita Ora', gradient: 'from-blue-900 to-neutral-900', image: ASSETS.artists['rita-ora'] },
+  { name: 'Dream Theatre', gradient: 'from-neutral-700 to-neutral-900', image: ASSETS.artists['dream-theatre'] },
+  { name: 'Dua Lipa', gradient: 'from-purple-700 via-purple-900 to-neutral-900', image: ASSETS.artists['dua-lipa'] },
+  { name: 'Måneskin', gradient: 'from-rose-900 to-neutral-900', image: ASSETS.artists.maneskin },
   { name: 'Coldplay', gradient: 'from-blue-800 to-neutral-900' },
 ]
 

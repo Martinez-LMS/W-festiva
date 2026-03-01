@@ -64,7 +64,8 @@
     @apply rounded-lg font-medium text-white transition-colors bg-accent hover:bg-accent-hover;
   }
   .badge-announcement {
-    @apply px-2 py-0.5 rounded text-xs font-medium bg-accent text-white;
+    @apply px-2 py-0.5 rounded text-xs font-medium text-white;
+    background-color: #E96744;
   }
   .accent-line {
     @apply mt-1 h-0.5 w-12 rounded-full bg-accent-line;

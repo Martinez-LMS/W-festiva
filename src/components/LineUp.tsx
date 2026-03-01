@@ -4,6 +4,7 @@ import { AdCard } from './AdCard'
 import { ScrollRow } from './ScrollRow'
 import { SectionWrapper } from './SectionWrapper'
 import { fetchLineUp, type LineUpItem } from '../services/lineup'
+import { ASSETS } from '../constants/assets'
 
 function LineUpSkeleton() {
   return (
@@ -47,7 +48,7 @@ export function LineUp() {
               <AdCard key={item.id} brand={item.brand} tagline={item.tagline} ctaText={item.ctaText} className={item.className} image={item.image} />
             )
           )}
-          <ArtistCard key="peek" name="Coldplay" gradient="from-blue-800 to-neutral-900" variant="lineup" image="/icons/9d47ce55a1fef74c98d9158c23a838025e02c21a.png" />
+          <ArtistCard key="peek" name="Coldplay" gradient="from-blue-800 to-neutral-900" variant="lineup" image={ASSETS.artists.coldplay} />
         </ScrollRow>
       )}
     </SectionWrapper>

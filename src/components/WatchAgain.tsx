@@ -1,12 +1,13 @@
 import { AdCard } from './AdCard'
 import { ScrollRow } from './ScrollRow'
 import { SectionWrapper } from './SectionWrapper'
+import { ASSETS } from '../constants/assets'
 
 const WATCH_AGAIN_ITEMS = [
-  { name: 'Alok', tag: 'Watch Again', sub: 'Festival', gradient: 'from-red-900 to-neutral-900', image: '/icons/2795bd5706948c68cfaaeff6606823c9dc2bbf4d.png' },
-  { name: 'Rita Ora', tag: 'Watch Again', sub: 'Festival', gradient: 'from-blue-900 to-neutral-900', image: '/icons/62e2f69934fb385de838b0299b6b1706dd0d9588.png' },
-  { name: 'Dua Lipa', tag: 'Watch Again', sub: 'Festival', gradient: 'from-purple-700 to-neutral-900', image: '/icons/a17e851d574eb43d7b6445bc9fda6dc33b0d719b.png' },
-  { name: 'Måneskin', tag: 'Watch Again', sub: 'Festival', gradient: 'from-rose-900 to-neutral-900', image: '/icons/c5effda54924b507d94a0c9b1402171b0a4f7bf4.png' },
+  { name: 'Alok', tag: 'Watch Again', sub: 'Festival', gradient: 'from-red-900 to-neutral-900', image: ASSETS.artists.alok },
+  { name: 'Rita Ora', tag: 'Watch Again', sub: 'Festival', gradient: 'from-blue-900 to-neutral-900', image: ASSETS.artists['rita-ora'] },
+  { name: 'Dua Lipa', tag: 'Watch Again', sub: 'Festival', gradient: 'from-purple-700 to-neutral-900', image: ASSETS.artists['dua-lipa'] },
+  { name: 'Måneskin', tag: 'Watch Again', sub: 'Festival', gradient: 'from-rose-900 to-neutral-900', image: ASSETS.artists.maneskin },
   { name: 'Coldplay', tag: 'Watch Again', sub: 'Festival', gradient: 'from-blue-800 to-neutral-900' },
 ]
 
@@ -37,7 +38,7 @@ export function WatchAgain() {
       <ScrollRow className="lg:!pr-0" innerClassName="!pr-0">
         {WATCH_AGAIN_ORDER.map((key) =>
           key === 'tesla' ? (
-            <AdCard key="tesla" brand="TESLA" tagline="Supercharger Technology" ctaText="learn more" doubleWidth image="/icons/c1ac28b90b7c69f045c9f9d03cd976ca77034382.png" />
+            <AdCard key="tesla" brand="TESLA" tagline="Supercharger Technology" ctaText="learn more" doubleWidth image={ASSETS.brands.tesla} />
           ) : (
             <WatchCard key={WATCH_AGAIN_ITEMS[key as number].name} {...WATCH_AGAIN_ITEMS[key as number]} />
           )

@@ -1,10 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
+import { ASSETS } from '../constants/assets'
 
 const SLIDES = [
   {
     id: 'coke',
     gradient: 'from-rose-900 via-rose-800 to-pink-900',
-    image: '/icons/3d2fafb44246715242e2579bbdfba740ff1259d9.png',
+    image: ASSETS.brands.cocaCola,
     cta: { text: 'GET A TASTE OF THE NEW COKE', href: '#' },
     note: '*with raspberry and spiced flavors',
   },
@@ -75,7 +76,7 @@ export function CocaBanner() {
 
   return (
     <section className="section-padding pt-0 pb-4 sm:pb-6 overflow-hidden overflow-y-hidden scrollbar-hide w-full max-w-full min-w-0 bg-surface">
-      <div className="w-full max-w-full min-w-0 overflow-hidden scrollbar-hide">
+      <div className="w-full max-w-full min-w-0 overflow-hidden scrollbar-hide relative">
         <div className="relative overflow-x-hidden overflow-y-hidden w-full max-w-full min-w-0 border-[40px] border-white rounded-none box-border scrollbar-hide">
           <div
             className="overflow-hidden w-full max-w-full min-w-0 select-none scrollbar-hide"
@@ -118,14 +119,16 @@ export function CocaBanner() {
               ))}
             </div>
           </div>
-          <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 flex gap-2 items-center justify-center z-10">
+        </div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 items-center justify-center z-10 py-2">
+          <div className="flex gap-2 items-center justify-center">
             {SLIDES.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 aria-label={`Ir para slide ${i + 1}`}
                 onClick={() => goTo(i)}
-                className={`rounded-full transition-all duration-200 ${index === i ? 'w-3 h-3 bg-accent scale-110' : 'w-2.5 h-2.5 bg-accent/30'}`}
+                className={`rounded-full transition-all duration-200 hover:scale-125 ${index === i ? 'w-3 h-3 scale-110 bg-accent' : 'w-2.5 h-2.5 bg-accent/40 hover:bg-accent/60'}`}
               />
             ))}
           </div>

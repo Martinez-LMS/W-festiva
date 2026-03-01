@@ -1,15 +1,30 @@
+import { ASSETS } from '../constants/assets'
+
 export type LineUpItem =
   | { type: 'artist'; id: string; name: string; gradient: string; image?: string }
   | { type: 'ad'; id: string; brand: string; tagline: string; ctaText: string; className?: string; image?: string }
 
 export const DEFAULT_LINEUP: LineUpItem[] = [
-  { type: 'artist', id: 'iron-maiden', name: 'Iron Maiden', gradient: 'from-amber-900 to-neutral-900', image: '/icons/4847f49c38741e27d74b4d56a55b5ba9204cb16c.png' },
-  { type: 'artist', id: 'alok', name: 'Alok', gradient: 'from-red-900 to-neutral-900', image: '/icons/2795bd5706948c68cfaaeff6606823c9dc2bbf4d.png' },
-  { type: 'artist', id: 'rita-ora', name: 'Rita Ora', gradient: 'from-blue-900 to-neutral-900', image: '/icons/62e2f69934fb385de838b0299b6b1706dd0d9588.png' },
-  { type: 'artist', id: 'dream-theatre', name: 'Dream Theatre', gradient: 'from-neutral-700 to-neutral-900', image: '/icons/26185ff81486c613f7d6d84d2420e5f97c6ddb27.png' },
-  { type: 'ad', id: 'tesla', brand: 'TESLA', tagline: 'Supercharger Technology', ctaText: 'learn more', className: '!w-[85vw] sm:!w-[60vw] md:!w-[42vw] lg:!w-[36vw] xl:!w-[32vw] !max-w-[600px]', image: '/icons/c1ac28b90b7c69f045c9f9d03cd976ca77034382.png' },
-  { type: 'artist', id: 'maneskin', name: 'Måneskin', gradient: 'from-rose-900 to-neutral-900', image: '/icons/c5effda54924b507d94a0c9b1402171b0a4f7bf4.png' },
+  { type: 'artist', id: 'iron-maiden', name: 'Iron Maiden', gradient: 'from-amber-900 to-neutral-900', image: ASSETS.artists['iron-maiden'] },
+  { type: 'artist', id: 'alok', name: 'Alok', gradient: 'from-red-900 to-neutral-900', image: ASSETS.artists.alok },
+  { type: 'artist', id: 'rita-ora', name: 'Rita Ora', gradient: 'from-blue-900 to-neutral-900', image: ASSETS.artists['rita-ora'] },
+  { type: 'artist', id: 'dream-theatre', name: 'Dream Theatre', gradient: 'from-neutral-700 to-neutral-900', image: ASSETS.artists['dream-theatre'] },
+  { type: 'ad', id: 'tesla', brand: 'TESLA', tagline: 'Supercharger Technology', ctaText: 'learn more', className: '!w-[85vw] sm:!w-[60vw] md:!w-[42vw] lg:!w-[36vw] xl:!w-[32vw] !max-w-[600px]', image: ASSETS.brands.tesla },
+  { type: 'artist', id: 'maneskin', name: 'Måneskin', gradient: 'from-rose-900 to-neutral-900', image: ASSETS.artists.maneskin },
 ]
+
+const ARTIST_IDS = ['iron-maiden', 'alok', 'rita-ora', 'dream-theatre', 'maneskin'] as const
+function normalizeLineUpItems(items: LineUpItem[]): LineUpItem[] {
+  return items.map((item) => {
+    if (item.type === 'artist' && item.image && ARTIST_IDS.includes(item.id as typeof ARTIST_IDS[number])) {
+      return { ...item, image: ASSETS.artists[item.id as keyof typeof ASSETS.artists] ?? item.image }
+    }
+    if (item.type === 'ad' && item.id === 'tesla') {
+      return { ...item, image: ASSETS.brands.tesla }
+    }
+    return item
+  })
+}
 
 export async function fetchLineUp(): Promise<LineUpItem[]> {
   try {
@@ -17,7 +32,8 @@ export async function fetchLineUp(): Promise<LineUpItem[]> {
     if (!res.ok) return DEFAULT_LINEUP
     const data = await res.json()
     const items = data?.items
-    return Array.isArray(items) && items.length > 0 ? items : DEFAULT_LINEUP
+    if (!Array.isArray(items) || items.length === 0) return DEFAULT_LINEUP
+    return normalizeLineUpItems(items)
   } catch {
     return DEFAULT_LINEUP
   }

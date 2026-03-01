@@ -1,23 +1,24 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
+import { ASSETS } from '../constants/assets'
 
 const SLIDES = [
   {
     id: 'heineken',
-    bgImage: "/icons/Group 92161.png",
+    bgImage: ASSETS.carousel.bg,
     gradient: "from-emerald-900/80 via-amber-900/40 to-amber-950/80",
     star: true,
     cta: { text: "GET A TASTE OF AMSTERDAM", href: "#" },
   },
   {
     id: 'slide2',
-    bgImage: "/icons/Group 92161.png",
+    bgImage: ASSETS.carousel.bg,
     gradient: "from-blue-900/80 via-slate-800/40 to-slate-900/80",
     star: false,
     cta: { text: "EXPLORE MORE", href: "#" },
   },
   {
     id: 'slide3',
-    bgImage: "/icons/Group 92161.png",
+    bgImage: ASSETS.carousel.bg,
     gradient: "from-purple-900/80 via-pink-900/40 to-amber-950/80",
     star: false,
     cta: { text: "DISCOVER", href: "#" },
@@ -95,7 +96,7 @@ export function BannerCarousel() {
                   key={slide.id}
                   className="relative flex-shrink-0 w-full min-h-[200px] sm:min-h-[280px] md:min-h-[320px] bg-gradient-to-br bg-cover bg-center bg-no-repeat flex flex-col justify-between p-4 sm:p-6 md:p-10"
                   style={{
-                    backgroundImage: `url('${encodeURI(slide.bgImage)}')`,
+                    backgroundImage: `url('${slide.bgImage}')`,
                     height: '400px',
                   }}
                 >
@@ -112,7 +113,7 @@ export function BannerCarousel() {
                       style={{ backgroundColor: '#008630' }}
                     >
                       {slide.cta.text}
-                      <img src="/icons/arrow.png" alt="" className="w-4 h-4 object-contain" />
+                      <img src={ASSETS.carousel.arrow} alt="" className="w-4 h-4 object-contain" />
                     </a>
                   </div>
                 </div>

@@ -1,14 +1,10 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-
-
-
-const LOGO_SRC = '/icons/vector.png'
-const NAV_ICON_SRCS = ['/icons/icon.png', '/icons/icons.png', '/icons/icone4.png', '/icons/icone5.png'] as const
+import { ASSETS, NAV_ICON_SRCS } from '../constants/assets'
 
 function LogoVector() {
   return (
     <img
-      src={LOGO_SRC}
+      src={ASSETS.logo.wFestival}
       alt="W Festival"
       width={36}
       height={36}
@@ -49,10 +45,35 @@ const EDGE_WIDTH = 24
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
   const touchStartX = useRef<number | null>(null)
+  const userMenuRef = useRef<HTMLDivElement>(null)
 
   const openMenu = useCallback(() => setMenuOpen(true), [])
   const closeMenu = useCallback(() => setMenuOpen(false), [])
+
+  const toggleUserMenu = useCallback(() => setUserMenuOpen((prev) => !prev), [])
+  const closeUserMenu = useCallback(() => setUserMenuOpen(false), [])
+
+  useEffect(() => {
+    if (!userMenuOpen) return
+    const handleEscape = (e: KeyboardEvent) => { if (e.key === 'Escape') setUserMenuOpen(false) }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [userMenuOpen])
+
+  useEffect(() => {
+    if (!userMenuOpen) return
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (userMenuRef.current?.contains(target)) return
+      const modal = document.getElementById('user-profile-modal')
+      if (modal?.contains(target)) return
+      setUserMenuOpen(false)
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [userMenuOpen])
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {
@@ -113,16 +134,56 @@ export function Header() {
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
             </button>
           </nav>
+          <button type="button" onClick={openMenu} className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
         </div>
         <div className="flex-1 min-w-0" aria-hidden />
-        <div className="flex items-center gap-2 flex-shrink-0 cursor-pointer rounded-lg px-2 py-1.5 -m-1 transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95">
-          <div className="w-8 h-8 rounded-full flex items-center justify-center bg-avatar transition-transform duration-300">
-            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
-          </div>
-          <span className="hidden sm:inline text-white text-sm font-medium whitespace-nowrap">Peter Parker</span>
-          <span className="flex-shrink-0 transition-transform duration-200 hover:rotate-90">
-            <GearIcon />
-          </span>
+        <div className="relative flex-shrink-0" ref={userMenuRef}>
+          <button type="button" onClick={toggleUserMenu} className="flex items-center gap-2 cursor-pointer rounded-lg px-2 py-1.5 -m-1 transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95" aria-label="Menu do usuário" aria-expanded={userMenuOpen} aria-haspopup="true">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-avatar transition-transform duration-300">
+              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
+            </div>
+            <span className="hidden sm:inline text-white text-sm font-medium whitespace-nowrap">Peter Parker</span>
+            <span className="flex-shrink-0 transition-transform duration-200 hover:rotate-90">
+              <GearIcon />
+            </span>
+          </button>
+          {userMenuOpen && (
+            <>
+              <div className="fixed inset-0 z-[65] bg-black/50 backdrop-blur-sm" aria-hidden onClick={closeUserMenu} />
+              <div
+                id="user-profile-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="user-profile-title"
+                className="fixed right-4 top-20 z-[70] w-[min(360px,calc(100vw-2rem))] rounded-xl header-bg border border-white/10 shadow-xl animate-drawer-in overflow-hidden"
+              >
+                <div className="p-5 border-b border-white/10">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 id="user-profile-title" className="text-white font-semibold text-lg">Meu perfil</h2>
+                    <button type="button" onClick={closeUserMenu} className="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10 transition-colors" aria-label="Fechar">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center bg-avatar flex-shrink-0">
+                      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-white font-medium truncate">Peter Parker</p>
+                      <p className="text-white/60 text-sm truncate">peter.parker@example.com</p>
+                      <p className="text-white/50 text-xs mt-0.5">Plano Festival</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-2">
+                  <button type="button" onClick={closeUserMenu} className="flex items-center gap-3 w-full px-4 py-3 text-left text-white/90 hover:text-white hover:bg-white/5 text-sm transition-colors rounded-lg">Configurações</button>
+                  <button type="button" onClick={closeUserMenu} className="flex items-center gap-3 w-full px-4 py-3 text-left text-white/90 hover:text-white hover:bg-white/5 text-sm transition-colors rounded-lg border-t border-white/5">Sair</button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {menuOpen && (
