@@ -10,8 +10,8 @@ const CONTENT_ITEMS = [
 
 function ContentCard({ title, subtitle, gradient, image, stretch }: { title: string; subtitle: string; gradient: string; image?: string; stretch?: boolean }) {
   return (
-    <article className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-[36vw] max-w-[440px] h-[280px] rounded-xl overflow-hidden bg-neutral-800 transition-transform duration-300 hover:scale-[1.02] ${stretch ? 'lg:flex-1 lg:min-w-[280px] lg:max-w-none lg:w-auto' : ''}`}>
-      <div className={`h-full relative flex flex-col justify-end p-4 sm:p-6 ${!image ? `bg-gradient-to-br ${gradient}` : ''}`}>
+    <article className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-[36vw] max-w-[440px] min-h-[280px] rounded-xl overflow-hidden bg-neutral-800 transition-transform duration-300 hover:scale-[1.02] flex flex-col ${stretch ? 'lg:flex-1 lg:min-w-[280px] lg:max-w-none lg:w-auto' : ''}`}>
+      <div className={`flex-1 min-h-0 relative flex flex-col justify-end p-4 sm:p-6 ${!image ? `bg-gradient-to-br ${gradient}` : ''}`}>
         {image && (
           <>
             <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none" aria-hidden />
@@ -32,11 +32,11 @@ const NIKE_THUMBS = [ASSETS.nike.thumb3, ASSETS.nike.shoe, ASSETS.nike.thumb4]
 
 function NikeAdCard({ stretch }: { stretch?: boolean }) {
   return (
-    <article className={`relative flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-[32vw] max-w-[420px] max-h-[400px] rounded-xl overflow-hidden bg-white text-neutral-900 transition-transform duration-300 hover:scale-[1.02] ${stretch ? 'lg:flex-1 lg:min-w-[280px] lg:max-w-none lg:w-auto' : ''}`}>
+    <article className={`relative flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-[32vw] max-w-[420px] max-h-[320px] sm:max-h-[400px] rounded-xl overflow-hidden bg-white text-neutral-900 transition-transform duration-300 hover:scale-[1.02] ${stretch ? 'lg:flex-1 lg:min-w-[280px] lg:max-w-none lg:w-auto' : ''}`}>
       <div className="absolute top-2 left-2 z-10 w-10 h-10 sm:w-12 sm:h-12 text-neutral-900" aria-hidden>
         <img src={ASSETS.nike.logo} alt="" className="w-full h-full object-contain" />
       </div>
-      <div className="flex flex-col sm:flex-row h-full max-h-[400px] min-h-0">
+      <div className="flex flex-col sm:flex-row h-full max-h-[320px] sm:max-h-[400px] min-h-0">
         <div className="flex-1 min-h-[110px] sm:min-h-0 sm:min-w-0 bg-neutral-100 flex items-center justify-center p-3 sm:p-5">
           <img src={ASSETS.nike.thumb1} alt="Nike Air Max 90 Futura" className="max-h-[130px] sm:max-h-[180px] w-auto object-contain" />
         </div>

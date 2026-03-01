@@ -16,18 +16,24 @@ const VARIANT_CLASS = {
 export function ArtistCard({ name, gradient, variant = 'standard', fillWidth, image }: Props) {
   const isFeature = variant === 'featured'
   const isContentRow = variant === 'contentRow'
+  const isLineup = variant === 'lineup'
   const sizeClass = fillWidth
     ? `${VARIANT_CLASS[variant]} lg:w-full lg:min-w-0`
     : VARIANT_CLASS[variant]
+  const imageHeightClass = isContentRow
+    ? 'h-full'
+    : isLineup
+      ? 'h-full min-h-[28vw] sm:min-h-[24vw] md:min-h-[20vw] lg:min-h-[14vw]'
+      : 'h-[28vw] sm:h-[24vw] md:h-[20vw] lg:h-[14vw] min-h-[18vw]'
 
   return (
     <article
-      className={`flex-shrink-0 ${sizeClass} rounded-xl overflow-hidden bg-neutral-800 transition-transform duration-300 hover:scale-[1.02]`}
+      className={`flex-shrink-0 ${sizeClass} rounded-xl overflow-hidden bg-neutral-800 transition-transform duration-300 hover:scale-[1.02] ${isLineup ? 'flex flex-col min-h-0' : ''}`}
     >
       <div
         className={`
-          relative flex items-end justify-center bg-cover bg-center bg-no-repeat
-          ${isContentRow ? 'h-full' : 'h-[28vw] sm:h-[24vw] md:h-[20vw] lg:h-[14vw] min-h-[18vw]'}
+          relative flex items-end justify-center bg-cover bg-center bg-no-repeat flex-1 min-h-0
+          ${imageHeightClass}
           px-3 sm:px-4 pb-4 sm:pb-6 pt-2 sm:pt-3
           lg:px-4 lg:pb-12
           ${!image ? `bg-gradient-to-b ${gradient} ${isFeature ? 'bg-gradient-to-br' : ''}` : ''}

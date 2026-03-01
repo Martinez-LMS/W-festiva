@@ -77,7 +77,7 @@ export function CocaBanner() {
   return (
     <section className="section-padding pt-0 pb-4 sm:pb-6 overflow-hidden overflow-y-hidden scrollbar-hide w-full max-w-full min-w-0 bg-surface">
       <div className="w-full max-w-full min-w-0 overflow-hidden scrollbar-hide relative">
-        <div className="relative overflow-x-hidden overflow-y-hidden w-full max-w-full min-w-0 border-[40px] border-white rounded-none box-border scrollbar-hide">
+        <div className="relative overflow-x-hidden overflow-y-hidden w-full max-w-full min-w-0 border-4 sm:border-[24px] md:border-[40px] border-white rounded-none box-border scrollbar-hide">
           <div
             className="overflow-hidden w-full max-w-full min-w-0 select-none scrollbar-hide"
             onTouchStart={onTouchStart}
@@ -92,7 +92,7 @@ export function CocaBanner() {
               {SLIDES.map((slide) => (
                 <div
                   key={slide.id}
-                  className="relative flex-shrink-0 w-full min-h-[200px] sm:min-h-[280px] md:min-h-[320px] flex flex-col justify-between p-4 sm:p-6 md:p-10"
+                  className="relative flex-shrink-0 w-full min-h-[200px] sm:min-h-[280px] md:min-h-[320px] flex flex-col justify-between p-4 sm:p-6 md:p-10 px-5 sm:px-6"
                   style={{
                     height: '400px',
                     ...('image' in slide && slide.image
@@ -111,7 +111,7 @@ export function CocaBanner() {
                         <span>→</span>
                       </a>
                       {slide.note && (
-                        <p className="text-white/70 text-[8px] mt-0.5 text-center inline-block relative left-1/2 -translate-x-1/2">{slide.note}</p>
+                        <p className="text-white/70 text-[8px] sm:text-[10px] mt-0.5 text-center w-full max-w-[85vw] mx-auto px-2 break-words">{slide.note}</p>
                       )}
                     </div>
                   </div>

@@ -4,7 +4,7 @@ import { ScrollRow } from './ScrollRow'
 import { SectionWrapper } from './SectionWrapper'
 import { fetchFestivalForYou, type FestivalForYouItem } from '../services/festivalForYou'
 
-const CARD_CLASS = 'flex-shrink-0 w-[48vw] sm:w-[30vw] md:w-[20vw] lg:w-[16vw] xl:w-[14vw] min-w-[200px] h-[22vw] sm:h-[20vw] md:h-[16vw] lg:h-[12vw] min-h-[180px] rounded-xl overflow-hidden relative'
+const CARD_CLASS = 'flex-shrink-0 w-[48vw] sm:w-[30vw] md:w-[20vw] lg:w-[16vw] xl:w-[14vw] min-w-[160px] sm:min-w-[200px] h-[22vw] sm:h-[20vw] md:h-[16vw] lg:h-[12vw] min-h-[160px] sm:min-h-[180px] rounded-xl overflow-hidden relative'
 
 function FestivalHeaderCard() {
   return (
@@ -136,17 +136,26 @@ export function FestivalForYou() {
     <SectionWrapper title="Festival for you" bg="bg-surface" scrollEdgeAlign hideTitle contentClassName="!pr-0">
       {loading && <FestivalSkeleton />}
       {!loading && items.length > 0 && (
-        <ScrollRow className="lg:!pr-0" innerClassName="!pr-0">
-          <FestivalHeaderCard />
-          {items.map((item) =>
-            item.type === 'genre' ? (
-              <GenreCard key={item.id} name={item.name} sub={item.sub} bg={item.bg} />
-            ) : (
-              <AirPodsCard key={item.id} />
-            )
-          )}
-          <GenreCard key="peek" name="Sertanejo" sub="Festival" bg="from-amber-800/80 to-neutral-900" />
-        </ScrollRow>
+        <>
+          <div className="section-padding flex flex-col gap-2 pb-3 sm:hidden">
+            <h2 className="text-base font-bold text-white">Festival for you</h2>
+            <p className="text-white/70 text-sm">Explore your favorite genres and discover new rhythms to love!</p>
+            <SeeAllButton />
+          </div>
+          <ScrollRow className="lg:!pr-0" innerClassName="!pr-0">
+            <div className="hidden sm:flex flex-shrink-0">
+              <FestivalHeaderCard />
+            </div>
+            {items.map((item) =>
+              item.type === 'genre' ? (
+                <GenreCard key={item.id} name={item.name} sub={item.sub} bg={item.bg} />
+              ) : (
+                <AirPodsCard key={item.id} />
+              )
+            )}
+            <GenreCard key="peek" name="Sertanejo" sub="Festival" bg="from-amber-800/80 to-neutral-900" />
+          </ScrollRow>
+        </>
       )}
     </SectionWrapper>
   )
